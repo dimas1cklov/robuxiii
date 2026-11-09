@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Robuxmachine</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/iabSVzl7.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/WCZnFH3J.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/vtRGBxBb.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/pAQPc9ih.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/1eSY5pFnj.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/pSAaIhNq.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/ICFtSL4o.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/1cBCtwChs.png">
+<link rel="preload" as="image" href="https://cdn.imagetourls.com/uploads/tyImg/qk4KrFPN.png">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#04060a;font-family:'Share Tech Mono',ui-monospace,Menlo,monospace;color:#eaf6ff}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+input::placeholder{color:#4d6577}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pan{from{background-position:0 0,0 0}to{background-position:0 56px,56px 0}}
+@keyframes glitch{0%,92%,100%{transform:none;text-shadow:0 0 12px rgba(252,238,10,.4)}93%{transform:translateX(-3px);text-shadow:3px 0 #ff2a6d,-3px 0 #00f0ff}95%{transform:translateX(3px);text-shadow:-3px 0 #ff2a6d,3px 0 #00f0ff}97%{transform:none}}
+@keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(400%)}}
+#bg{position:fixed;inset:0;overflow:hidden;z-index:0}
+#grid{position:absolute;left:-50%;right:-50%;top:35%;bottom:-40%;transform:perspective(380px) rotateX(60deg);background-image:linear-gradient(rgba(0,240,255,.5) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(0,240,255,.5) 1.5px,transparent 1.5px);background-size:56px 56px;animation:pan 3s linear infinite;filter:drop-shadow(0 0 6px #00f0ff);opacity:.6}
+#glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,42,109,.22),transparent 55%),radial-gradient(ellipse at 90% 40%,rgba(0,240,255,.12),transparent 50%),linear-gradient(180deg,rgba(4,6,10,.2),rgba(4,6,10,.9) 90%)}
+#lines{position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);pointer-events:none;z-index:6}
+#sweep{position:fixed;left:0;right:0;top:0;height:25vh;background:linear-gradient(180deg,transparent,rgba(0,240,255,.07),transparent);animation:scan 5s linear infinite;pointer-events:none;z-index:6}
+#app{position:relative;z-index:2;max-width:480px;min-height:100vh;margin:0 auto;display:flex;flex-direction:column;padding:28px 20px 24px;gap:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px}
+.coin{border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffbd0,#fcee0a 45%,#b89a00 100%);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:800;color:#5c4600}
+.brand{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;letter-spacing:2px;color:#fcee0a;animation:glitch 4s infinite}
+.bal{display:flex;align-items:center;gap:7px;padding:8px 12px;background:rgba(252,238,10,.08);border:1px solid #fcee0a;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));font-size:14px;color:#fcee0a}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.center{display:flex;flex-direction:column;align-items:center;gap:22px}
+.pw{padding:1.5px;background:#00f0ff;filter:drop-shadow(0 0 8px rgba(0,240,255,.5));clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px))}
+.pi{background:linear-gradient(180deg,#0a1119,#060a10);clip-path:polygon(0 0,calc(100% - 25px) 0,100% 25px,100% 100%,25px 100%,0 calc(100% - 25px));padding:0 20px 20px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.tag{width:46px;height:32px;background:#fcee0a;color:#000;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,8px 100%)}
+.btn{width:100%;height:56px;border:0;background:#fcee0a;color:#000;font-size:19px;letter-spacing:2px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.btn.off{background:#26313d;color:#6b7d8d}
+.ghost{width:100%;height:44px;border:1px solid rgba(0,240,255,.5);background:transparent;color:#00f0ff;font-size:14px;letter-spacing:2px}
+.field{width:100%;display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;background:#0d151f;border:2px solid #fcee0a;box-shadow:4px 4px 0 #fcee0a}
+.field input{flex:1;min-width:0;background:none;border:0;outline:none;color:#fff;font:inherit;font-size:16px}
+.plats{width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.plat{height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:0;background:#0d151f;color:#9fb3c4;font-size:10px;letter-spacing:1px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);box-shadow:inset 0 0 0 1px rgba(0,240,255,.35)}
+.plat.on{background:#fcee0a;color:#000;box-shadow:inset 0 0 0 1px #fcee0a}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;height:196px;border:0;background:#0d151f;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;padding:10px 8px 12px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));box-shadow:inset 0 0 0 1.5px rgba(0,240,255,.35)}
+.tile.wide{grid-column:span 2}
+.tile.on{background:#fcee0a;color:#000;box-shadow:inset 0 0 0 1.5px #fcee0a}
+.ph{width:130px;height:100px;margin-bottom:6px;background:repeating-linear-gradient(135deg,rgba(0,240,255,.14) 0 8px,rgba(0,240,255,.04) 8px 16px);border:1px dashed rgba(0,240,255,.5);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:2px;color:#00f0ff;text-align:center}
+.tile.on .ph{color:#000;border-color:#000}
+.chk{position:absolute;top:8px;left:8px;width:22px;height:22px;background:#fcee0a;color:#000;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.tile.on .chk{background:#000;color:#fcee0a}
+.lim{position:absolute;top:8px;right:22px;font-size:9px;letter-spacing:2px;color:#ff2a6d;animation:pulse 1.2s infinite}
+.tt{font-size:24px;font-weight:700;line-height:1.1;text-align:center}
+.tt.s{font-size:13px}
+.ts{font-size:10px;letter-spacing:3px;opacity:.8}
+.bar{position:sticky;bottom:12px;padding:1.5px;background:#fcee0a;filter:drop-shadow(0 0 10px rgba(252,238,10,.35));clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.bar button{width:100%;height:60px;border:0;background:#0a1119;color:#fcee0a;font-size:17px;letter-spacing:2px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,13px 100%,0 calc(100% - 13px))}
+.row{width:100%;display:flex;align-items:center;gap:12px;padding:8px 10px;background:#0d151f;border:1px solid rgba(0,240,255,.35)}
+.thumb{width:34px;height:34px;flex:none}
+.rx{width:30px;height:30px;border:1px solid #ff2a6d;background:transparent;color:#ff2a6d}
+.prog{width:100%;height:14px;background:#1b2530;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%)}
+.prog i{display:block;height:100%;background:#fcee0a;box-shadow:0 0 12px #fcee0a}
+.dots{display:flex;justify-content:center;gap:8px}
+.dots span{height:6px;background:rgba(255,255,255,.2);transition:all .25s}
+a{color:#fcee0a}
+</style>
+</head>
+<body>
+<div id="bg"><div id="grid"></div><div id="glow"></div></div>
+<div id="lines"></div><div id="sweep"></div>
+<div id="app">
+  <header>
+    <div class="logo">
+      <img src="https://cdn.imagetourls.com/uploads/tyImg/iabSVzl7.png" alt="Roblox-Logo" style="width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #fff) drop-shadow(0 0 8px rgba(252,238,10,.7))" />
+      <div style="display:flex;flex-direction:column;gap:2px"><span class="brand">ROBUXMACHINE</span><span style="font-size:10px;letter-spacing:4px;color:#00f0ff">ROBUX GENERATOR</span></div>
+    </div>
+    <div class="bal"><img src="https://cdn.imagetourls.com/uploads/tyImg/WCZnFH3J.png" style="width:18px;height:18px;object-fit:contain;filter:drop-shadow(0 0 6px #fcee0a)"><span id="bal">0</span></div>
+  </header>
+  <main id="view"></main>
+  <div class="dots" id="dots"><span></span><span></span><span></span></div>
+</div>
+
+<script>
+(function(){
+var ACCENT='#fcee0a';
+var CATALOG=[
+ {id:'c22',kind:'coins',value:22500,title:'22 500',sub:'ROBUX',wide:1,img:'https://cdn.imagetourls.com/uploads/tyImg/vtRGBxBb.png'},
+ {id:'sl',kind:'skin',value:30000,title:'LIMITED SKINS',sub:'LIMITED EDITION',lim:1,img:'https://cdn.imagetourls.com/uploads/tyImg/pAQPc9ih.png'},
+ {id:'c10',kind:'coins',value:10000,title:'10 000',sub:'ROBUX',img:'https://cdn.imagetourls.com/uploads/tyImg/1eSY5pFnj.png'},
+ {id:'s20',kind:'skin',value:20000,title:'SKINS 20 000+',sub:'ROBUX VALUE',img:'https://cdn.imagetourls.com/uploads/tyImg/pSAaIhNq.png'},
+ {id:'s5',kind:'skin',value:7500,title:'SKINS 10 000\u201320 000',sub:'ROBUX VALUE',img:'https://cdn.imagetourls.com/uploads/tyImg/ICFtSL4o.png'},
+ {id:'c3',kind:'coins',value:3000,title:'3 000',sub:'ROBUX',img:'https://cdn.imagetourls.com/uploads/tyImg/1cBCtwChs.png'},
+ {id:'c08',kind:'coins',value:800,title:'800',sub:'ROBUX',img:'https://cdn.imagetourls.com/uploads/tyImg/qk4KrFPN.png'}
+];
+var ICONS={
+ pc:'<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><rect x="3" y="3" width="8.500" height="8.500"/><rect x="12.500" y="3" width="8.500" height="8.500"/><rect x="3" y="12.500" width="8.500" height="8.500"/><rect x="12.500" y="12.500" width="8.500" height="8.500"/></svg>',
+ xbox:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.500"/><path d="M8 8l8 8M16 8l-8 8"/></svg>',
+ android:'<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6 10a6 6 0 0 1 12 0z"/><rect x="6" y="11" width="12" height="8" rx="1.500"/><rect x="2.500" y="11" width="2.500" height="6.500" rx="1.250"/><rect x="19" y="11" width="2.500" height="6.500" rx="1.250"/><rect x="8.500" y="18" width="2.500" height="4" rx="1.250"/><rect x="13" y="18" width="2.500" height="4" rx="1.250"/><path d="M8.500 3.500 9.800 5.800M15.500 3.500 14.200 5.800" stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none"/><circle cx="9.500" cy="7.500" r=".9" fill="#0d151f"/><circle cx="14.500" cy="7.500" r=".9" fill="#0d151f"/></svg>',
+ ios:'<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><defs><mask id="bite"><rect width="24" height="24" fill="#fff"/><circle cx="21" cy="11.500" r="3.200" fill="#000"/></mask></defs><g mask="url(#bite)"><path d="M16.400 12.600c0-2.200 1.800-3.200 1.900-3.300-1-1.500-2.600-1.700-3.200-1.700-1.400-.1-2.600.8-3.300.8s-1.700-.8-2.800-.8c-1.400 0-2.800.9-3.500 2.100-1.500 2.600-.4 6.500 1.100 8.600.7 1 1.600 2.200 2.700 2.100 1.100 0 1.500-.7 2.800-.7s1.700.7 2.800.7c1.200 0 1.900-1 2.600-2.100.8-1.200 1.100-2.300 1.200-2.400-.1 0-2.300-.9-2.300-3.300z"/></g><path d="M14.300 5.800c.6-.7 1-1.700.9-2.700-.9 0-1.900.6-2.500 1.300-.5.600-1 1.600-.9 2.600 1 .1 1.900-.5 2.500-1.200z"/></svg>'
+};
+var PLATS=[['pc','PC'],['xbox','XBOX'],['android','ANDROID'],['ios','iOS']];
+var S={screen:'boot',username:'',platform:null,cart:[],progress:0,balance:0,credited:0,err:''};
+var timer=null,view=document.getElementById('view');
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+function clear(){clearInterval(timer);clearTimeout(timer);}
+function total(){var t=0;CATALOG.forEach(function(c){if(S.cart.indexOf(c.id)>-1)t+=c.value;});return t;}
+function panel(tag,inner){return '<div class="pw"><div class="pi"><div class="tag">'+tag+'</div>'+inner+'</div></div>';}
+function go(screen){S.screen=screen;render();}
+function setDots(){
+ var idx={boot:-1,user:0,search:0,shop:1,cart:1,sync:2,done:3}[S.screen];
+ var d=document.querySelectorAll('#dots span');
+ for(var i=0;i<3;i++){d[i].style.width=i===idx?'28px':'10px';d[i].style.background=i<=idx?ACCENT:'rgba(255,255,255,.2)';}
+ document.getElementById('bal').textContent=fmt(S.balance);
+}
+function runProgress(step,done){
+ clear();S.progress=0;
+ timer=setInterval(function(){
+  S.progress=Math.min(100,S.progress+step);
+  var f=document.getElementById('pf');if(f)f.style.width=S.progress+'%';
+  var cnt=document.getElementById('cnt');if(cnt)cnt.textContent=fmt(Math.round(total()*S.progress/100));
+  var lb=document.getElementById('slabel');if(lb)lb.textContent=S.progress<30?'Connecting...':'Syncing '+fmt(total())+' Robux';
+  if(S.progress>=100){clear();timer=setTimeout(done,400);}
+ },60);
+}
+function render(){
+ setDots();var h='';
+ if(S.screen==='boot'){
+  h='<div class="center" style="gap:24px"><img src="https://cdn.imagetourls.com/uploads/tyImg/iabSVzl7.png" alt="Roblox Logo" style="width:130px;height:130px;object-fit:contain;animation:float 2.4s ease-in-out infinite;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #fff) drop-shadow(0 0 20px rgba(252,238,10,.6))"><div class="prog" style="width:220px;height:10px"><i id="pf" style="width:0"></i></div><span style="font-size:13px;letter-spacing:4px;color:#00f0ff;animation:pulse 1.4s infinite">LOADING...</span></div>';
+  view.innerHTML=h;
+  runProgress(4,function(){go('user');});
+ }
+ else if(S.screen==='user'){
+  var p=PLATS.map(function(x){return '<button class="plat'+(S.platform===x[0]?' on':'')+'" data-p="'+x[0]+'">'+ICONS[x[0]]+x[1]+'</button>';}).join('');
+  h=panel(1,'<p style="margin:0;text-align:center;font-size:17px;line-height:1.45">Enter your username and select your platform</p><label class="field"><span style="width:16px;height:16px;border-radius:50%;border:2px solid #7a8da0"></span><input id="uname" maxlength="20" autocomplete="off" placeholder="Your Username..." value=""></label><div class="plats">'+p+'</div><button class="btn off" id="go">PROCEED</button><span id="err" style="text-align:center;font-size:13px;color:#ff2a6d"></span>');
+  view.innerHTML=h;
+  var inp=document.getElementById('uname');inp.value=S.username;
+  var go1=document.getElementById('go');
+  var upd=function(){S.err='';document.getElementById('err').textContent='';go1.className='btn'+((S.username.trim().length>=3&&S.platform)?'':' off');};
+  upd();
+  inp.oninput=function(){S.username=inp.value;upd();};
+  Array.prototype.forEach.call(document.querySelectorAll('.plat'),function(b){b.onclick=function(){S.platform=b.getAttribute('data-p');Array.prototype.forEach.call(document.querySelectorAll('.plat'),function(x){x.classList.toggle('on',x===b);});upd();};});
+  go1.onclick=function(){
+   var e=document.getElementById('err');
+   if(S.username.trim().length<3){e.textContent='Username: 3 characters minimum';return;}
+   if(!S.platform){e.textContent='Select a platform';return;}
+   go('search');timer=setTimeout(function(){go('shop');},400);
+  };
+ }
+ else if(S.screen==='search'){
+  view.innerHTML=panel(1,'<div style="padding:8px 0 24px;display:flex;flex-direction:column;align-items:center;gap:22px"><span style="font-size:16px;letter-spacing:4px;animation:pulse .6s infinite">SEARCHING...</span><div style="padding:12px 22px;background:#0d151f;border:2px solid #fcee0a;font-size:18px;color:#fff"></div></div>');
+  view.querySelector('div[style*="border:2px"]').textContent=S.username;
+ }
+ else if(S.screen==='shop'){
+  var t=CATALOG.map(function(c){
+   var on=S.cart.indexOf(c.id)>-1;
+   var imgContent=c.img?'<img src="'+c.img+'" style="width:100%;height:100%;object-fit:contain;transform:scale(1.25);filter:drop-shadow(0 0 6px rgba(0,0,0,0.6))">':'IMAGE<br>'+(c.kind==='coins'?'ROBUX':'SKIN');
+   return '<button class="tile'+(c.wide?' wide':'')+(on?' on':'')+'" data-id="'+c.id+'">'+(on?'<span class="chk">&#10003;</span>':'')+(c.lim?'<span class="lim">LIMITED</span>':'')+'<div class="ph" style="'+(c.img?'background:none;border:none':'')+'">'+imgContent+'</div><span class="tt'+(c.title.length>8?' s':'')+'">'+c.title+'</span><span class="ts">'+c.sub+'</span></button>';
+  }).join('');
+  view.innerHTML='<div style="display:flex;flex-direction:column;gap:14px">'+panel(2,'<span style="font-size:16px;padding-bottom:6px">Select items to get</span>')+'<div class="grid2">'+t+'</div><div class="bar"><button id="tocart"><span>GET ROBUX ['+S.cart.length+']</span><span>'+fmt(total())+' &rarr;</span></button></div></div>';
+  Array.prototype.forEach.call(view.querySelectorAll('.tile'),function(b){b.onclick=function(){var id=b.getAttribute('data-id'),i=S.cart.indexOf(id);if(i>-1)S.cart.splice(i,1);else S.cart.push(id);var y=window.scrollY;render();window.scrollTo(0,y);};});
+  document.getElementById('tocart').onclick=function(){go('cart');};
+ }
+ else if(S.screen==='cart'){
+  var items=CATALOG.filter(function(c){return S.cart.indexOf(c.id)>-1;});
+  var rows=items.map(function(c){
+   var th=c.img?'background:url('+c.img+') center/contain no-repeat':(c.kind==='coins'?'background:url(https://cdn.imagetourls.com/uploads/tyImg/iabSVzl7.png) center/contain no-repeat':'background:repeating-linear-gradient(135deg,rgba(0,240,255,.3) 0 5px,rgba(0,240,255,.08) 5px 10px);border:1px dashed #00f0ff');
+   return '<div class="row"><span class="thumb" style="'+th+'"></span><span style="flex:1;min-width:0;font-size:14px;line-height:1.2">'+c.title+(c.kind==='coins'?' ROBUX':'')+'<br><span style="font-size:10px;letter-spacing:2px;color:#7a8da0">'+(c.kind==='coins'?'ROBUX':'SKIN PACK')+'</span></span><span style="font-size:15px;color:#fcee0a">'+fmt(c.value)+'</span><button class="rx" data-id="'+c.id+'">&times;</button></div>';
+  }).join('');
+  view.innerHTML=panel(3,'<span style="font-size:16px;letter-spacing:3px">GET ROBUX</span>'+(items.length?'':'<span style="font-size:14px;color:#7a8da0;padding:18px 0">Your list is empty</span>')+'<div style="width:100%;display:flex;flex-direction:column;gap:8px">'+rows+'</div><div style="width:100%;display:flex;align-items:baseline;justify-content:space-between;border-top:1px dashed rgba(0,240,255,.4);padding-top:12px"><span style="font-size:12px;letter-spacing:3px;color:#7a8da0">TOTAL</span><span style="font-size:26px;font-weight:700;color:#fcee0a">'+fmt(total())+'</span></div><button class="btn'+(items.length?'':' off')+'" id="sync">GET ROBUX</button><button class="ghost" id="back">&larr; BACK TO SHOP</button>');
+  Array.prototype.forEach.call(view.querySelectorAll('.rx'),function(b){b.onclick=function(){S.cart.splice(S.cart.indexOf(b.getAttribute('data-id')),1);render();};});
+  document.getElementById('back').onclick=function(){go('shop');};
+  document.getElementById('sync').onclick=function(){if(S.cart.length)go('sync');};
+ }
+ else if(S.screen==='sync'){
+  view.innerHTML=panel(3,'<div style="padding:6px 0 14px;width:100%;display:flex;flex-direction:column;align-items:center;gap:20px"><img src="https://cdn.imagetourls.com/uploads/tyImg/WCZnFH3J.png" style="width:60px;height:60px;object-fit:contain;animation:spin 2.4s linear infinite;filter:drop-shadow(0 0 10px rgba(252,238,10,.5))"><span id="slabel" style="font-size:17px">Connecting...</span><div class="prog"><i id="pf" style="width:0"></i></div><div style="display:flex;align-items:baseline;gap:8px;font-size:30px;font-weight:700;color:#fcee0a"><span id="cnt">0</span><span style="font-size:12px;letter-spacing:2px;color:#7a8da0">/ '+fmt(total())+'</span></div></div>');
+  var amt=total();
+  runProgress(2,function(){S.balance+=amt;S.credited=amt;S.cart=[];go('done');});
+ }
+ else if(S.screen==='done'){
+  view.innerHTML='<div class="center" style="gap:20px"><img src="https://cdn.imagetourls.com/uploads/tyImg/iabSVzl7.png" alt="Roblox Logo" style="width:130px;height:130px;object-fit:contain;animation:float 2.4s ease-in-out infinite;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #fff) drop-shadow(0 0 20px rgba(252,238,10,.6))"><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="display:flex;align-items:center;gap:8px"><div style="width:24px;height:24px;border-radius:50%;background:#00e676;color:#000;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px;box-shadow:0 0 12px #00e676">&#10003;</div><span style="font-size:15px;letter-spacing:4px;font-weight:700;color:#00e676;text-shadow:0 0 8px rgba(0,230,118,0.6)">SUCCESS</span></div><span style="font-family:Orbitron,sans-serif;font-weight:800;font-size:40px;color:#fff;animation:glitch 4s infinite">+'+fmt(S.credited)+'</span><span id="who" style="font-size:14px;color:#7a8da0"></span></div><div style="width:100%;display:flex;flex-direction:column;gap:10px"><button class="btn" id="again">SHOP AGAIN</button><button class="ghost" id="reset" style="height:48px;font-size:15px">START OVER</button></div></div>';
+  document.getElementById('who').textContent='robux added to '+S.username;
+  document.getElementById('again').onclick=function(){go('shop');};
+  document.getElementById('reset').onclick=function(){S.username='';S.platform=null;S.cart=[];go('boot');};
+ }
+}
+render();
+})();
+</script>
+</body>
+</html>
